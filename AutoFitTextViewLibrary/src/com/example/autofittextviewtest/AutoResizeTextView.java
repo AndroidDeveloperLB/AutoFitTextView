@@ -27,7 +27,7 @@ public class AutoResizeTextView extends TextView
   private float                mMaxTextSize;
   private float                mSpacingMult        =1.0f;
   private float                mSpacingAdd         =0.0f;
-  private float                mMinTextSize        =20;
+  private float                mMinTextSize;
   private int                  mWidthLimit;
   private int                  mMaxLines;
   private boolean              mEnableSizeCache    =true;
@@ -61,6 +61,8 @@ public class AutoResizeTextView extends TextView
   public AutoResizeTextView(final Context context,final AttributeSet attrs,final int defStyle)
     {
     super(context,attrs,defStyle);
+    // using the minimal recommended font size
+    mMinTextSize=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,12,getResources().getDisplayMetrics());
     mMaxTextSize=getTextSize();
     if(mMaxLines==0)
       // no value was assigned during construction
