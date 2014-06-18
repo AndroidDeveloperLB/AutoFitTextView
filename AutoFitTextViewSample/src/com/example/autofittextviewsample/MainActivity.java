@@ -152,13 +152,13 @@ public class MainActivity extends Activity
     switch(item.getItemId())
       {
       case R.id.menuItem_all_my_apps:
-        url="https://play.google.com/store/apps/developer?id=Liran+Barsisa";
+        url="https://play.google.com/store/apps/developer?id=AndroidDeveloperLB";
         break;
       case R.id.menuItem_all_my_repositories:
         url="https://github.com/AndroidDeveloperLB";
         break;
       case R.id.menuItem_current_repository_website:
-        url="https://github.com/AndroidDeveloperLB/AndroidJniBitmapOperations";
+        url="https://github.com/AndroidDeveloperLB/AutoFitTextView";
         break;
       }
     if(url==null)
