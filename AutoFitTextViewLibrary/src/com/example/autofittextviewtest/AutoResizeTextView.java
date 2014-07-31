@@ -201,6 +201,8 @@ public class AutoResizeTextView extends TextView
     final int startSize=(int)_minTextSize;
     final int heightLimit=getMeasuredHeight()-getCompoundPaddingBottom()-getCompoundPaddingTop();
     _widthLimit=getMeasuredWidth()-getCompoundPaddingLeft()-getCompoundPaddingRight();
+    if (_widthLimit <= 0)
+      return;
     _availableSpaceRect.right=_widthLimit;
     _availableSpaceRect.bottom=heightLimit;
     super.setTextSize(TypedValue.COMPLEX_UNIT_PX,efficientTextSizeSearch(startSize,(int)_maxTextSize,_sizeTester,_availableSpaceRect));
