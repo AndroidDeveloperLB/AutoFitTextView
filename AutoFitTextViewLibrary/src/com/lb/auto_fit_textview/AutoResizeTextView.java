@@ -1,4 +1,4 @@
-package com.example.autofittextviewtest;
+package com.lb.auto_fit_textview;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;

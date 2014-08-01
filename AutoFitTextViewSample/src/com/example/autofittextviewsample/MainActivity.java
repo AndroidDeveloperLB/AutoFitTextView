@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import com.example.autofittextviewtest.AutoResizeTextView;
+import com.lb.auto_fit_textview.AutoResizeTextView;
 
 public class MainActivity extends Activity
   {
