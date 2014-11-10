@@ -22,5 +22,5 @@ Known issues
 
 
   [1]: http://stackoverflow.com/questions/16017165/auto-fit-textview-for-android/21851239
-  [2]: https://raw.githubusercontent.com/AndroidDeveloperLB/AutoFitTextView/master/preview.gif
+  [2]: https://raw.githubusercontent.com/AndroidDeveloperLB/AutoFitTextView/master/animationPreview.gif
   [3]: https://code.google.com/p/android/issues/detail?id=22493
