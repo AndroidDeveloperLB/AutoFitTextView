@@ -11,7 +11,7 @@ Note that even though the sample is of API 16, it should work fine on most cases
 
 Preview
 --
-![preview animation][3]
+![preview animation][2]
 
 Known issues
 ------------
