@@ -1,0 +1,2 @@
+include ':AutoFitTextViewLibrary'
+include ':AutoFitTextViewSample'
