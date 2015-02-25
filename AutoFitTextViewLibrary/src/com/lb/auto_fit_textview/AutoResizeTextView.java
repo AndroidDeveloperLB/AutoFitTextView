@@ -95,8 +95,8 @@ public class AutoResizeTextView extends TextView
             textRect.bottom=layout.getHeight();
             int maxWidth=-1;
             for(int i=0;i<layout.getLineCount();i++)
-              if(maxWidth<layout.getLineWidth(i))
-                maxWidth=(int)layout.getLineWidth(i);
+              if(maxWidth<layout.getLineRight(i)-layout.getLineLeft(i))
+                maxWidth=(int)layout.getLineRight(i)-(int)layout.getLineLeft(i);
             textRect.right=maxWidth;
             }
           textRect.offsetTo(0,0);
