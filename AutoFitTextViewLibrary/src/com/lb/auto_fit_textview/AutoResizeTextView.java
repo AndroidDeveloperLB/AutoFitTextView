@@ -204,18 +204,28 @@ public class AutoResizeTextView extends TextView
     adjustTextSize();
     }
 
-  private void adjustTextSize()
+    private void adjustTextSize()
     {
-    if(!_initiallized)
-      return;
-    final int startSize=(int)_minTextSize;
-    final int heightLimit=getMeasuredHeight()-getCompoundPaddingBottom()-getCompoundPaddingTop();
-    _widthLimit=getMeasuredWidth()-getCompoundPaddingLeft()-getCompoundPaddingRight();
-    if(_widthLimit<=0)
-      return;
-    _availableSpaceRect.right=_widthLimit;
-    _availableSpaceRect.bottom=heightLimit;
-    super.setTextSize(TypedValue.COMPLEX_UNIT_PX,efficientTextSizeSearch(startSize,(int)_maxTextSize,_sizeTester,_availableSpaceRect));
+        post(new Runnable() {
+            @Override
+            public void run() {
+                if (!_initiallized)
+                    return;
+                final int startSize = (int) _minTextSize;
+                final int heightLimit = getMeasuredHeight() - getCompoundPaddingBottom() - getCompoundPaddingTop();
+                _widthLimit = getMeasuredWidth() - getCompoundPaddingLeft() - getCompoundPaddingRight();
+                if (_widthLimit <= 0)
+                    return;
+                _availableSpaceRect.right = _widthLimit;
+                _availableSpaceRect.bottom = heightLimit;
+//                super.setTextSize(TypedValue.COMPLEX_UNIT_PX, efficientTextSizeSearch(startSize, (int) _maxTextSize, _sizeTester, _availableSpaceRect));
+                superSetTextSize(startSize);
+            }
+        });
+    }
+
+    private void superSetTextSize(int startSize) {
+        super.setTextSize(TypedValue.COMPLEX_UNIT_PX, efficientTextSizeSearch(startSize, (int) _maxTextSize, _sizeTester, _availableSpaceRect));
     }
 
   /**
