@@ -1,2 +1,2 @@
-include ':AutoFitTextViewLibrary', ':sampleTruncated'
+include ':AutoFitTextViewLibrary'
 include ':AutoFitTextViewSample'

@@ -1,7 +1,0 @@
-<resources>
-    <dimen name="_12sp">24.0sp</dimen>
-    <dimen name="_16sp">32.0sp</dimen>
-
-    <dimen name="_5dp">10.0dp</dimen>
-    <dimen name="_10dp">20.0dp</dimen>
-</resources>
