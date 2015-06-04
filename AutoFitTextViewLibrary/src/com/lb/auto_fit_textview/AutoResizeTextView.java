@@ -114,6 +114,7 @@ public class AutoResizeTextView extends TextView
     if(paint==null)
       paint=new TextPaint(getPaint());
     paint.setTypeface(tf);
+    adjustTextSize();
     super.setTypeface(tf);
     }
 
