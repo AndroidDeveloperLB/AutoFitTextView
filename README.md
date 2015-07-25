@@ -27,4 +27,4 @@ Known issues
   [1]: http://stackoverflow.com/questions/16017165/auto-fit-textview-for-android/21851239
   [2]: https://raw.githubusercontent.com/AndroidDeveloperLB/AutoFitTextView/master/animationPreview.gif
   [3]: https://code.google.com/p/android/issues/detail?id=22493
-  [4]: http://viksaaskool.wordpress.com/2014/11/16/using-auto-resize-to-fit-edittext-in-android/
+  [4]: https://viksaaskool.wordpress.com/2014/11/16/using-auto-resize-to-fit-edittext-in-android/
