@@ -9,7 +9,7 @@ The sample shows how the library can handle various parameters being changed on 
 
 Note that even though the sample is of API 16, it should work fine on most cases for much older versions.
 
-A nice example of how to use an EditText that has this functionality can be found ![here][4] (didn't test it, but it looks promising).
+A nice example of how to use an EditText that has this functionality can be found [here][4] (didn't test it, but it looks promising).
 
 Preview
 --
