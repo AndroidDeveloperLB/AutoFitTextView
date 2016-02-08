@@ -26,7 +26,7 @@ public class AutoResizeTextView extends TextView {
     private final SizeTester _sizeTester;
     private float _maxTextSize,_spacingMult = 1.0f, _spacingAdd = 0.0f, _minTextSize;
     private int _widthLimit, _maxLines;
-    private boolean _initiallized = false;
+    private boolean _initialized = false;
     private TextPaint _paint;
 
     private interface SizeTester {
@@ -90,7 +90,7 @@ public class AutoResizeTextView extends TextView {
                 return 1;
             }
         };
-        _initiallized = true;
+        _initialized = true;
     }
 
     @Override
@@ -176,7 +176,7 @@ public class AutoResizeTextView extends TextView {
 //    @Override
 //    public void run()
 //      {
-        if (!_initiallized)
+        if (!_initialized)
             return;
         final int startSize = (int) _minTextSize;
         final int heightLimit = getMeasuredHeight() - getCompoundPaddingBottom() - getCompoundPaddingTop();
