@@ -34,7 +34,7 @@ public class AutoResizeTextView extends TextView
   private int _maxLines;
   private boolean _enableSizeCache=true;
   private boolean _initiallized=false;
-  private TextPaint paint;
+  private final TextPaint _paint;
 
   private interface SizeTester
     {
@@ -64,6 +64,7 @@ public class AutoResizeTextView extends TextView
     // using the minimal recommended font size
     _minTextSize=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,12,getResources().getDisplayMetrics());
     _maxTextSize=getTextSize();
+    _paint = new TextPaint(getPaint());
     if(_maxLines==0)
     // no value was assigned during construction
       _maxLines=NO_LINE_LIMIT;
@@ -76,17 +77,17 @@ public class AutoResizeTextView extends TextView
     @Override
     public int onTestSize(final int suggestedSize,final RectF availableSPace)
       {
-      paint.setTextSize(suggestedSize);
+      _paint.setTextSize(suggestedSize);
       final String text=getText().toString();
       final boolean singleLine=getMaxLines()==1;
       if(singleLine)
         {
-        textRect.bottom=paint.getFontSpacing();
-        textRect.right=paint.measureText(text);
+        textRect.bottom=_paint.getFontSpacing();
+        textRect.right=_paint.measureText(text);
         }
       else
         {
-        final StaticLayout layout=new StaticLayout(text,paint,_widthLimit,Alignment.ALIGN_NORMAL,_spacingMult,_spacingAdd,true);
+        final StaticLayout layout=new StaticLayout(text,_paint,_widthLimit,Alignment.ALIGN_NORMAL,_spacingMult,_spacingAdd,true);
         // return early if we have more lines
         if(getMaxLines()!=NO_LINE_LIMIT&&layout.getLineCount()>getMaxLines())
           return 1;
@@ -111,9 +112,7 @@ public class AutoResizeTextView extends TextView
   @Override
   public void setTypeface(final Typeface tf)
     {
-    if(paint==null)
-      paint=new TextPaint(getPaint());
-    paint.setTypeface(tf);
+    _paint.setTypeface(tf);
     adjustTextSize();
     super.setTypeface(tf);
     }
