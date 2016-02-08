@@ -121,8 +121,6 @@ public class MainActivity extends Activity
     textView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,maxHeight,getResources().getDisplayMetrics()));
     textView.setEllipsize(TruncateAt.END);
     // since we use it only once per each click, we don't need to cache the results, ever
-    textView.setEnableSizeCache(false);
-    textView.setEnableSizeCache(false);
     textView.setLayoutParams(new LayoutParams(width,height));
     textView.setBackgroundColor(0xff00ff00);
     final String text=_contentEditText.getText().toString();

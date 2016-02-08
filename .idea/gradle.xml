@@ -13,6 +13,13 @@
             <option value="$PROJECT_DIR$/AutoFitTextViewSample" />
           </set>
         </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AutoFitTextViewLibrary" />
+            <option value="$PROJECT_DIR$/AutoFitTextViewSample" />
+          </set>
+        </option>
       </GradleProjectSettings>
     </option>
   </component>
