@@ -28,7 +28,8 @@ public class AutoResizeTextView extends TextView {
     private int _widthLimit, _maxLines;
     private boolean _initialized = false;
     private TextPaint _paint;
-
+    private boolean _allCaps = false;
+    
     private interface SizeTester {
         /**
          * @param suggestedSize  Size of text to be tested
@@ -50,6 +51,9 @@ public class AutoResizeTextView extends TextView {
 
     public AutoResizeTextView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
+
+        _allCaps = attrs.getAttributeBooleanValue("http://schemas.android.com/apk/res/android", "textAllCaps", false);
+        
         // using the minimal recommended font size
         _minTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics());
         _maxTextSize = getTextSize();
@@ -93,6 +97,12 @@ public class AutoResizeTextView extends TextView {
         _initialized = true;
     }
 
+    @Override
+    public void setText(CharSequence text, BufferType type) {
+        if( _allCaps ) text = text.toString().toUpperCase();
+        super.setText(text, type);
+    }
+    
     @Override
     public void setTypeface(final Typeface tf) {
         super.setTypeface(tf);
