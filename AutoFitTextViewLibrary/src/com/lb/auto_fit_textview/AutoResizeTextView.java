@@ -50,6 +50,7 @@ public class AutoResizeTextView extends TextView {
 
     public AutoResizeTextView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
+
         // using the minimal recommended font size
         _minTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics());
         _maxTextSize = getTextSize();
@@ -65,7 +66,13 @@ public class AutoResizeTextView extends TextView {
             @Override
             public int onTestSize(final int suggestedSize, final RectF availableSPace) {
                 _paint.setTextSize(suggestedSize);
-                final String text = getText().toString();
+                final TransformationMethod transformationMethod = getTransformationMethod();
+                final String text;
+                if (transformationMethod != null)
+                        text = transformationMethod.getTransformation(getText(), AutoResizeTextView.this).toString();
+                    else 
+                        text = getText().toString();
+                        
                 final boolean singleLine = getMaxLines() == 1;
                 if (singleLine) {
                     textRect.bottom = _paint.getFontSpacing();
@@ -91,6 +98,12 @@ public class AutoResizeTextView extends TextView {
             }
         };
         _initialized = true;
+    }
+
+    @Override
+    public void setAllCaps(boolean allCaps) {
+        super.setAllCaps(allCaps);
+        adjustTextSize();
     }
 
     @Override
