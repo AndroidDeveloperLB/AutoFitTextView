@@ -51,8 +51,6 @@ public class AutoResizeTextView extends TextView {
     public AutoResizeTextView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
 
-        _allCaps = attrs.getAttributeBooleanValue("http://schemas.android.com/apk/res/android", "textAllCaps", false);
-        
         // using the minimal recommended font size
         _minTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics());
         _maxTextSize = getTextSize();
