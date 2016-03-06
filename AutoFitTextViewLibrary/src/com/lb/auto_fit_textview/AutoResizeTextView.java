@@ -28,8 +28,7 @@ public class AutoResizeTextView extends TextView {
     private int _widthLimit, _maxLines;
     private boolean _initialized = false;
     private TextPaint _paint;
-    private boolean _allCaps = false;
-    
+
     private interface SizeTester {
         /**
          * @param suggestedSize  Size of text to be tested
@@ -69,7 +68,13 @@ public class AutoResizeTextView extends TextView {
             @Override
             public int onTestSize(final int suggestedSize, final RectF availableSPace) {
                 _paint.setTextSize(suggestedSize);
-                final String text = getText().toString();
+                final TransformationMethod transformationMethod = getTransformationMethod();
+                final String text;
+                if (transformationMethod != null)
+                        text = transformationMethod.getTransformation(getText(), AutoResizeTextView.this).toString();
+                    else 
+                        text = getText().toString();
+                        
                 final boolean singleLine = getMaxLines() == 1;
                 if (singleLine) {
                     textRect.bottom = _paint.getFontSpacing();
@@ -97,18 +102,6 @@ public class AutoResizeTextView extends TextView {
         _initialized = true;
     }
 
-    @Override
-    public void setText(CharSequence text, BufferType type) {
-        if( _allCaps ) text = text.toString().toUpperCase();
-        super.setText(text, type);
-    }
-    
-    @Override
-    public void  setAllCaps(boolean allCaps){
-        super.setAllCaps(allCaps);
-        _allCaps = allCaps;
-    }
-    
     @Override
     public void setTypeface(final Typeface tf) {
         super.setTypeface(tf);
