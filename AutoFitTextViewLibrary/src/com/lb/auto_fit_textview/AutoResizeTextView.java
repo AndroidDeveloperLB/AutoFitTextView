@@ -101,6 +101,12 @@ public class AutoResizeTextView extends TextView {
     }
 
     @Override
+    public void setAllCaps(boolean allCaps) {
+        super.setAllCaps(allCaps);
+        adjustTextSize();
+    }
+
+    @Override
     public void setTypeface(final Typeface tf) {
         super.setTypeface(tf);
         adjustTextSize();
