@@ -29,6 +29,10 @@ Import using Gradle
 	        compile 'com.github.AndroidDeveloperLB:AutoFitTextView:1'
 	}
 
+You can find recent version here:
+
+https://jitpack.io/#AndroidDeveloperLB/AutoFitTextView
+
 Known issues
 ------------
 
