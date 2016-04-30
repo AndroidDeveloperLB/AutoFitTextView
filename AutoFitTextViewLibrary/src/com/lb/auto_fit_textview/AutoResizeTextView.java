@@ -6,13 +6,13 @@ import android.content.res.Resources;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
+import android.text.method.TransformationMethod;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.widget.TextView;
-import android.text.method.TransformationMethod;
 
 /**
  * a textView that is able to self-adjust its font size depending on the min and max size of the font, and its own size.<br/>
@@ -21,11 +21,11 @@ import android.text.method.TransformationMethod;
  * It should work fine with most Android versions, but might have some issues on Android 3.1 - 4.04, as setTextSize will only work for the first time. <br/>
  * More info here: https://code.google.com/p/android/issues/detail?id=22493 and here in case you wish to fix it: http://stackoverflow.com/a/21851239/878126
  */
-public class AutoResizeTextView extends TextView {
+public class AutoResizeTextView extends AppCompatTextView {
     private static final int NO_LINE_LIMIT = -1;
     private final RectF _availableSpaceRect = new RectF();
     private final SizeTester _sizeTester;
-    private float _maxTextSize,_spacingMult = 1.0f, _spacingAdd = 0.0f, _minTextSize;
+    private float _maxTextSize, _spacingMult = 1.0f, _spacingAdd = 0.0f, _minTextSize;
     private int _widthLimit, _maxLines;
     private boolean _initialized = false;
     private TextPaint _paint;
@@ -70,10 +70,10 @@ public class AutoResizeTextView extends TextView {
                 final TransformationMethod transformationMethod = getTransformationMethod();
                 final String text;
                 if (transformationMethod != null)
-                        text = transformationMethod.getTransformation(getText(), AutoResizeTextView.this).toString();
-                    else 
-                        text = getText().toString();
-                        
+                    text = transformationMethod.getTransformation(getText(), AutoResizeTextView.this).toString();
+                else
+                    text = getText().toString();
+
                 final boolean singleLine = getMaxLines() == 1;
                 if (singleLine) {
                     textRect.bottom = _paint.getFontSpacing();
