@@ -42,11 +42,11 @@ public class AutoResizeTextView extends AppCompatTextView {
     }
 
     public AutoResizeTextView(final Context context) {
-        this(context, null, 0);
+        this(context, null, android.R.attr.textViewStyle);
     }
 
     public AutoResizeTextView(final Context context, final AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs, android.R.attr.textViewStyle);
     }
 
     public AutoResizeTextView(final Context context, final AttributeSet attrs, final int defStyle) {
