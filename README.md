@@ -15,6 +15,20 @@ Preview
 --
 ![preview animation][2]
 
+Import using Gradle
+--
+
+	allprojects {
+		repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+	}
+	
+		dependencies {
+	        compile 'com.github.AndroidDeveloperLB:AutoFitTextView:1'
+	}
+
 Known issues
 ------------
 
