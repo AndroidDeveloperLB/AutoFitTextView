@@ -51,7 +51,6 @@ public class AutoResizeTextView extends AppCompatTextView {
 
     public AutoResizeTextView(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-
         // using the minimal recommended font size
         _minTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics());
         _maxTextSize = getTextSize();
@@ -62,10 +61,9 @@ public class AutoResizeTextView extends AppCompatTextView {
         // prepare size tester:
         _sizeTester = new SizeTester() {
             final RectF textRect = new RectF();
-
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
-            public int onTestSize(final int suggestedSize, final RectF availableSPace) {
+            public int onTestSize(final int suggestedSize, final RectF availableSpace) {
                 _paint.setTextSize(suggestedSize);
                 final TransformationMethod transformationMethod = getTransformationMethod();
                 final String text;
@@ -73,7 +71,6 @@ public class AutoResizeTextView extends AppCompatTextView {
                     text = transformationMethod.getTransformation(getText(), AutoResizeTextView.this).toString();
                 else
                     text = getText().toString();
-
                 final boolean singleLine = getMaxLines() == 1;
                 if (singleLine) {
                     textRect.bottom = _paint.getFontSpacing();
@@ -91,7 +88,7 @@ public class AutoResizeTextView extends AppCompatTextView {
                     textRect.right = maxWidth;
                 }
                 textRect.offsetTo(0, 0);
-                if (availableSPace.contains(textRect))
+                if (availableSpace.contains(textRect))
                     // may be too small, don't worry we will find the best match
                     return -1;
                 // else, too big
@@ -120,9 +117,9 @@ public class AutoResizeTextView extends AppCompatTextView {
     }
 
     @Override
-    public void setMaxLines(final int maxlines) {
-        super.setMaxLines(maxlines);
-        _maxLines = maxlines;
+    public void setMaxLines(final int maxLines) {
+        super.setMaxLines(maxLines);
+        _maxLines = maxLines;
         adjustTextSize();
     }
 
