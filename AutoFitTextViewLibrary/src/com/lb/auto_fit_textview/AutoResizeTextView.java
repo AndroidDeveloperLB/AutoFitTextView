@@ -61,6 +61,7 @@ public class AutoResizeTextView extends AppCompatTextView {
         // prepare size tester:
         _sizeTester = new SizeTester() {
             final RectF textRect = new RectF();
+
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public int onTestSize(final int suggestedSize, final RectF availableSpace) {
@@ -82,9 +83,17 @@ public class AutoResizeTextView extends AppCompatTextView {
                         return 1;
                     textRect.bottom = layout.getHeight();
                     int maxWidth = -1;
-                    for (int i = 0; i < layout.getLineCount(); i++)
+                    int lineCount = layout.getLineCount();
+                    for (int i = 0; i < lineCount; i++) {
+                        int end = layout.getLineEnd(i);
+                        if (i < lineCount - 1 && end > 0 && !isValidWordWrap(text.charAt(end - 1), text.charAt(end)))
+                            return 1;
                         if (maxWidth < layout.getLineRight(i) - layout.getLineLeft(i))
                             maxWidth = (int) layout.getLineRight(i) - (int) layout.getLineLeft(i);
+                    }
+                    //for (int i = 0; i < layout.getLineCount(); i++)
+                    //    if (maxWidth < layout.getLineRight(i) - layout.getLineLeft(i))
+                    //        maxWidth = (int) layout.getLineRight(i) - (int) layout.getLineLeft(i);
                     textRect.right = maxWidth;
                 }
                 textRect.offsetTo(0, 0);
@@ -96,6 +105,10 @@ public class AutoResizeTextView extends AppCompatTextView {
             }
         };
         _initialized = true;
+    }
+
+    public boolean isValidWordWrap(char before, char after) {
+        return before == ' ' || before == '-';
     }
 
     @Override
