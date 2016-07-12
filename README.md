@@ -38,8 +38,6 @@ Known issues
 
  - API 12-15 (including) of Android might have issues as a cause of [**this known bug**][3], but in most cases it should work fine there too. 
  
- - On very rare cases, the last character of a line goes to the next line. If you know how to fix it, please write down about it.
-
 
 
   [1]: http://stackoverflow.com/questions/16017165/auto-fit-textview-for-android/21851239
