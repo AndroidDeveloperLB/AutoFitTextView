@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity">
 
     <RelativeLayout
         android:id="@+id/parametersContainer"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:columnCount="2"
         android:orientation="horizontal"
-        android:padding="4dp" >
+        android:padding="4dp">
 
         <EditText
             android:id="@+id/contentEditText"
@@ -22,7 +22,7 @@
             android:layout_gravity="fill_horizontal"
             android:ems="10"
             android:hint="content"
-            android:text="content text sample" />
+            android:text="content text sample"/>
 
         <Button
             android:id="@+id/minusLineCountButton"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contentEditText"
             android:layout_toRightOf="@+id/textView2"
-            android:text="-" />
+            android:text="-"/>
 
         <TextView
             android:id="@+id/linesCountTextView"
@@ -41,7 +41,7 @@
             android:layout_toRightOf="@+id/minusLineCountButton"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="2" />
+            android:text="2"/>
 
         <Button
             android:id="@+id/plusLineCountButton"
@@ -49,45 +49,35 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/contentEditText"
             android:layout_toRightOf="@+id/linesCountTextView"
-            android:text="+" />
+            android:text="+"/>
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/minusLineCountButton"
-            android:layout_alignTop="@+id/widthSeekBar"
+            android:layout_below="@id/textView2"
             android:text="width:"
-            android:textSize="20dp" />
+            android:textSize="20dp"/>
 
         <SeekBar
             android:id="@+id/widthSeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView1"
             android:layout_below="@+id/minusLineCountButton"
-            android:layout_toRightOf="@+id/TextView01"
+            android:layout_toRightOf="@+id/textView1"
             android:max="100"
-            android:progress="50" />
+            android:progress="50"/>
 
         <TextView
             android:id="@+id/TextView01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/heightSeekBar"
+            android:layout_below="@+id/textView1"
             android:text="height:"
-            android:textSize="20dp" />
-
-        <SeekBar
-            android:id="@+id/heightSeekBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/widthSeekBar"
-            android:layout_toRightOf="@+id/TextView01"
-            android:max="100"
-            android:progress="50" />
+            android:textSize="20dp"/>
 
         <TextView
             android:id="@+id/textView2"
@@ -97,7 +87,20 @@
             android:layout_alignParentLeft="true"
             android:layout_alignTop="@+id/minusLineCountButton"
             android:gravity="center_vertical"
-            android:text="max lines count:" />
+            android:text="max lines count:"/>
+
+        <SeekBar
+            android:id="@+id/heightSeekBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/TextView01"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/widthSeekBar"
+            android:layout_toEndOf="@+id/TextView01"
+            android:layout_toRightOf="@+id/TextView01"
+            android:max="100"
+            android:progress="50"/>
     </RelativeLayout>
 
     <FrameLayout
@@ -106,7 +109,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/parametersContainer"
-        android:background="#ffff0000" >
+        android:background="#ffff0000">
     </FrameLayout>
 
 </RelativeLayout>

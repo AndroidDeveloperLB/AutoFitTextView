@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.autofittextviewsample"
-    android:installLocation="auto"
-   >
+<manifest package="com.example.autofittextviewsample"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          android:installLocation="auto">
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light" >
+        android:theme="@style/Theme.AppCompat.Light">
         <activity
-            android:name="com.example.autofittextviewsample.MainActivity"
-            android:label="@string/app_name" >
+            android:name=".MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".Main2Activity">
         </activity>
     </application>
 
