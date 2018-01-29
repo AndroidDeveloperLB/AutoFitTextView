@@ -27,6 +27,7 @@ public class AutoResizeTextView extends AppCompatTextView {
     private final SizeTester _sizeTester;
     private float _maxTextSize, _spacingMult = 1.0f, _spacingAdd = 0.0f, _minTextSize;
     private int _widthLimit, _maxLines;
+    private boolean _onlyWrapOnNewLine = false;
     private boolean _initialized = false;
     private TextPaint _paint;
 
@@ -86,7 +87,7 @@ public class AutoResizeTextView extends AppCompatTextView {
                     int lineCount = layout.getLineCount();
                     for (int i = 0; i < lineCount; i++) {
                         int end = layout.getLineEnd(i);
-                        if (i < lineCount - 1 && end > 0 && !isValidWordWrap(text.charAt(end - 1), text.charAt(end)))
+                        if (i < lineCount - 1 && end > 0 && !isValidWordWrap(text.charAt(end - 1)))
                             return 1;
                         if (maxWidth < layout.getLineRight(i) - layout.getLineLeft(i))
                             maxWidth = (int) layout.getLineRight(i) - (int) layout.getLineLeft(i);
@@ -107,8 +108,9 @@ public class AutoResizeTextView extends AppCompatTextView {
         _initialized = true;
     }
 
-    public boolean isValidWordWrap(char before, char after) {
-        return before == ' ' || before == '-';
+    public boolean isValidWordWrap(char before) {
+        if (_onlyWrapOnNewLine) return before == '\n';
+        else return before == ' ' || before == '-';
     }
 
     @Override
@@ -189,6 +191,16 @@ public class AutoResizeTextView extends AppCompatTextView {
      */
     public void setMinTextSize(final float minTextSize) {
         _minTextSize = minTextSize;
+        adjustTextSize();
+    }
+
+    /**
+     * Set if wrapping should only be on new line
+     *
+     * @param onlyWrapOnNewLine
+     */
+    public void setOnlyWrapOnNewLine(final boolean onlyWrapOnNewLine) {
+        _onlyWrapOnNewLine = onlyWrapOnNewLine;
         adjustTextSize();
     }
 
