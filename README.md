@@ -1,3 +1,5 @@
+[![Release](https://img.shields.io/github/release/AndroidDeveloperLB/AutoFitTextView.svg?style=flat)](https://jitpack.io/#AndroidDeveloperLB/AutoFitTextView)
+
 AutoFitTextView
 ===============
 
