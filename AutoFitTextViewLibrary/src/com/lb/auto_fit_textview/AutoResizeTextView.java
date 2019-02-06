@@ -6,13 +6,14 @@ import android.content.res.Resources;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.support.v7.widget.AppCompatTextView;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.method.TransformationMethod;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * a textView that is able to self-adjust its font size depending on the min and max size of the font, and its own size.<br/>
