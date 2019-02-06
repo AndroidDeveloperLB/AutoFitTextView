@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.autofittextviewsample"
-        minSdkVersion 14
+        minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -41,8 +41,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation project(':AutoFitTextViewLibrary')
-    compile "androidx.core:core-ktx:+"
+    compile "androidx.core:core-ktx:1.0.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }
 repositories {
     mavenCentral()

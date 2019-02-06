@@ -7,32 +7,26 @@ import android.text.Editable
 import android.text.TextUtils.TruncateAt
 import android.text.TextWatcher
 import android.util.TypedValue
-import android.view.*
+import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup.LayoutParams
 import android.view.ViewTreeObserver.OnPreDrawListener
-import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.lb.auto_fit_textview.AutoResizeTextView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     // private final Random _random =new Random();
     // private static final String ALLOWED_CHARACTERS ="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
-    private var _contentEditText: EditText? = null
-    private var _textViewcontainer: ViewGroup? = null
-    private var _widthSeekBar: SeekBar? = null
-    private var _heightSeekBar: SeekBar? = null
-    private var _linesCountTextView: TextView? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        _textViewcontainer = findViewById<View>(R.id.container) as ViewGroup
-        _contentEditText = findViewById<View>(R.id.contentEditText) as EditText
-        _contentEditText!!.addTextChangedListener(object : TextWatcher {
+        contentEditText!!.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -41,8 +35,6 @@ class MainActivity : AppCompatActivity() {
                 recreateTextView()
             }
         })
-        _widthSeekBar = findViewById<View>(R.id.widthSeekBar) as SeekBar
-        _heightSeekBar = findViewById<View>(R.id.heightSeekBar) as SeekBar
         val seekBarChangeListener = object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
 
@@ -52,44 +44,43 @@ class MainActivity : AppCompatActivity() {
                 recreateTextView()
             }
         }
-        _heightSeekBar!!.setOnSeekBarChangeListener(seekBarChangeListener)
-        _widthSeekBar!!.setOnSeekBarChangeListener(seekBarChangeListener)
-        _linesCountTextView = findViewById<View>(R.id.linesCountTextView) as TextView
+        heightSeekBar!!.setOnSeekBarChangeListener(seekBarChangeListener)
+        widthSeekBar!!.setOnSeekBarChangeListener(seekBarChangeListener)
         findViewById<View>(R.id.plusLineCountButton).setOnClickListener {
-            var maxLinesCount = Integer.parseInt(_linesCountTextView!!.text.toString())
-            _linesCountTextView!!.text = Integer.toString(++maxLinesCount)
+            var maxLinesCount = Integer.parseInt(linesCountTextView!!.text.toString())
+            linesCountTextView!!.text = Integer.toString(++maxLinesCount)
             recreateTextView()
         }
         findViewById<View>(R.id.minusLineCountButton).setOnClickListener(OnClickListener {
-            var maxLinesCount = Integer.parseInt(_linesCountTextView!!.text.toString())
+            var maxLinesCount = Integer.parseInt(linesCountTextView!!.text.toString())
             if (maxLinesCount == 1)
                 return@OnClickListener
-            _linesCountTextView!!.text = Integer.toString(--maxLinesCount)
+            linesCountTextView!!.text = Integer.toString(--maxLinesCount)
             recreateTextView()
         })
-        runJustBeforeBeingDrawn(_textViewcontainer!!, Runnable { recreateTextView() })
+        runJustBeforeBeingDrawn(textViewContainer!!, Runnable { recreateTextView() })
 
 
     }
 
     protected fun recreateTextView() {
-        _textViewcontainer!!.removeAllViews()
-        val maxWidth = _textViewcontainer!!.width
-        val maxHeight = _textViewcontainer!!.height
+        textViewContainer!!.removeAllViews()
+        val maxWidth = textViewContainer!!.width
+        val maxHeight = textViewContainer!!.height
         val textView = AutoResizeTextView(this@MainActivity)
         textView.gravity = Gravity.CENTER
-        val width = _widthSeekBar!!.progress * maxWidth / _widthSeekBar!!.max
-        val height = _heightSeekBar!!.progress * maxHeight / _heightSeekBar!!.max
-        val maxLinesCount = Integer.parseInt(_linesCountTextView!!.text.toString())
+        val width = widthSeekBar!!.progress * maxWidth / widthSeekBar!!.max
+        val height = heightSeekBar!!.progress * maxHeight / heightSeekBar!!.max
+        val maxLinesCount = Integer.parseInt(linesCountTextView!!.text.toString())
         textView.maxLines = maxLinesCount
         textView.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, maxHeight.toFloat(), resources.displayMetrics)
         textView.ellipsize = TruncateAt.END
         // since we use it only once per each click, we don't need to cache the results, ever
         textView.layoutParams = LayoutParams(width, height)
         textView.setBackgroundColor(-0xff0100)
-        val text = _contentEditText!!.text.toString()
+        val text = contentEditText!!.text.toString()
         textView.text = text
-        _textViewcontainer!!.addView(textView)
+        textViewContainer!!.addView(textView)
     }
 
     // private String getRandomText()

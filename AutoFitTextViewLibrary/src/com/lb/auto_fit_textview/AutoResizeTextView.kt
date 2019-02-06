@@ -21,16 +21,16 @@ import androidx.appcompat.widget.AppCompatTextView
  * More info here: https://code.google.com/p/android/issues/detail?id=22493 and here in case you wish to fix it: http://stackoverflow.com/a/21851239/878126
  */
 class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = android.R.attr.textViewStyle) : AppCompatTextView(context, attrs, defStyle) {
-    private val _availableSpaceRect = RectF()
-    private val _sizeTester: SizeTester
-    private var _maxTextSize: Float = 0.toFloat()
-    private var _spacingMult = 1.0f
-    private var _spacingAdd = 0.0f
-    private var _minTextSize: Float = 0.toFloat()
-    private var _widthLimit: Int = 0
-    private var _maxLines: Int = 0
-    private var _initialized = false
-    private var _paint: TextPaint? = null
+    private val availableSpaceRect = RectF()
+    private val sizeTester: SizeTester
+    private var maxTextSize: Float = 0.toFloat()
+    private var spacingMult = 1.0f
+    private var spacingAdd = 0.0f
+    private var minTextSize: Float = 0.toFloat()
+    private var widthLimit: Int = 0
+    private var maxLines: Int = 0
+    private var initialized = false
+    private var textPaint: TextPaint? = null
 
     private interface SizeTester {
         /**
@@ -45,19 +45,19 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
 
     init {
         // using the minimal recommended font size
-        _minTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics)
-        _maxTextSize = textSize
-        _paint = TextPaint(paint)
-        if (_maxLines == 0)
+        minTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics)
+        maxTextSize = textSize
+        textPaint = TextPaint(paint)
+        if (maxLines == 0)
         // no value was assigned during construction
-            _maxLines = NO_LINE_LIMIT
+            maxLines = NO_LINE_LIMIT
         // prepare size tester:
-        _sizeTester = object : SizeTester {
+        sizeTester = object : SizeTester {
             internal val textRect = RectF()
 
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             override fun onTestSize(suggestedSize: Int, availableSpace: RectF): Int {
-                _paint!!.textSize = suggestedSize.toFloat()
+                textPaint!!.textSize = suggestedSize.toFloat()
                 val transformationMethod = transformationMethod
                 val text: String
                 if (transformationMethod != null)
@@ -66,10 +66,10 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
                     text = getText().toString()
                 val singleLine = maxLines == 1
                 if (singleLine) {
-                    textRect.bottom = _paint!!.fontSpacing
-                    textRect.right = _paint!!.measureText(text)
+                    textRect.bottom = textPaint!!.fontSpacing
+                    textRect.right = textPaint!!.measureText(text)
                 } else {
-                    val layout = StaticLayout(text, _paint, _widthLimit, Alignment.ALIGN_NORMAL, _spacingMult, _spacingAdd, true)
+                    val layout = StaticLayout(text, textPaint, widthLimit, Alignment.ALIGN_NORMAL, spacingMult, spacingAdd, true)
                     // return early if we have more lines
                     if (maxLines != NO_LINE_LIMIT && layout.lineCount > maxLines)
                         return 1
@@ -93,7 +93,7 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
                 // else, too big
             }
         }
-        _initialized = true
+        initialized = true
     }
 
     fun isValidWordWrap(before: Char, after: Char): Boolean {
@@ -111,38 +111,38 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
     }
 
     override fun setTextSize(size: Float) {
-        _maxTextSize = size
+        maxTextSize = size
         adjustTextSize()
     }
 
     override fun setMaxLines(maxLines: Int) {
         super.setMaxLines(maxLines)
-        _maxLines = maxLines
+        this.maxLines = maxLines
         adjustTextSize()
     }
 
     override fun getMaxLines(): Int {
-        return _maxLines
+        return maxLines
     }
 
     override fun setSingleLine() {
         super.setSingleLine()
-        _maxLines = 1
+        maxLines = 1
         adjustTextSize()
     }
 
     override fun setSingleLine(singleLine: Boolean) {
         super.setSingleLine(singleLine)
         if (singleLine)
-            _maxLines = 1
+            maxLines = 1
         else
-            _maxLines = NO_LINE_LIMIT
+            maxLines = NO_LINE_LIMIT
         adjustTextSize()
     }
 
     override fun setLines(lines: Int) {
         super.setLines(lines)
-        _maxLines = lines
+        maxLines = lines
         adjustTextSize()
     }
 
@@ -153,14 +153,14 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
             Resources.getSystem()
         else
             c.resources
-        _maxTextSize = TypedValue.applyDimension(unit, size, r.displayMetrics)
+        maxTextSize = TypedValue.applyDimension(unit, size, r.displayMetrics)
         adjustTextSize()
     }
 
     override fun setLineSpacing(add: Float, mult: Float) {
         super.setLineSpacing(add, mult)
-        _spacingMult = mult
-        _spacingAdd = add
+        spacingMult = mult
+        spacingAdd = add
     }
 
     /**
@@ -169,7 +169,7 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
      * @param minTextSize
      */
     fun setMinTextSize(minTextSize: Float) {
-        _minTextSize = minTextSize
+        this.minTextSize = minTextSize
         adjustTextSize()
     }
 
@@ -181,23 +181,23 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
         //    @Override
         //    public void run()
         //      {
-        if (!_initialized)
+        if (!initialized)
             return
-        val startSize = _minTextSize.toInt()
+        val startSize = minTextSize.toInt()
         val heightLimit = measuredHeight - compoundPaddingBottom - compoundPaddingTop
-        _widthLimit = measuredWidth - compoundPaddingLeft - compoundPaddingRight
-        if (_widthLimit <= 0)
+        widthLimit = measuredWidth - compoundPaddingLeft - compoundPaddingRight
+        if (widthLimit <= 0)
             return
-        _paint = TextPaint(paint)
-        _availableSpaceRect.right = _widthLimit.toFloat()
-        _availableSpaceRect.bottom = heightLimit.toFloat()
+        textPaint = TextPaint(paint)
+        availableSpaceRect.right = widthLimit.toFloat()
+        availableSpaceRect.bottom = heightLimit.toFloat()
         superSetTextSize(startSize)
         //      }
         //    });
     }
 
     private fun superSetTextSize(startSize: Int) {
-        val textSize = binarySearch(startSize, _maxTextSize.toInt(), _sizeTester, _availableSpaceRect)
+        val textSize = binarySearch(startSize, maxTextSize.toInt(), sizeTester, availableSpaceRect)
         super.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize.toFloat())
     }
 
