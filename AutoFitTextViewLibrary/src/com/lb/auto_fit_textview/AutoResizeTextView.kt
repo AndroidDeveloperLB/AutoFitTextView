@@ -69,7 +69,9 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
                     textRect.bottom = textPaint!!.fontSpacing
                     textRect.right = textPaint!!.measureText(text)
                 } else {
-                    val layout = StaticLayout(text, textPaint, widthLimit, Alignment.ALIGN_NORMAL, spacingMult, spacingAdd, true)
+                    val layout: StaticLayout = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        StaticLayout.Builder.obtain(text, 0, text.length, textPaint!!, widthLimit).setLineSpacing(spacingAdd, spacingMult).setAlignment(Alignment.ALIGN_NORMAL).setIncludePad(true).build()
+                    } else StaticLayout(text, textPaint, widthLimit, Alignment.ALIGN_NORMAL, spacingMult, spacingAdd, true)
                     // return early if we have more lines
                     if (maxLines != NO_LINE_LIMIT && layout.lineCount > maxLines)
                         return 1
