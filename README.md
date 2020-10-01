@@ -28,7 +28,7 @@ Import using Gradle
 	}
 	
 		dependencies {
-	        compile 'com.github.AndroidDeveloperLB:AutoFitTextView:XXX'
+	        implementation 'com.github.AndroidDeveloperLB:AutoFitTextView:XXX'
 	}
 
 You can find recent version here (replace XXX):
