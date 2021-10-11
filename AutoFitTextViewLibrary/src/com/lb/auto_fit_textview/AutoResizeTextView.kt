@@ -80,7 +80,7 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
                     val lineCount = layout.lineCount
                     for (i in 0 until lineCount) {
                         val end = layout.getLineEnd(i)
-                        if (i < lineCount - 1 && end > 0 && !isValidWordWrap(text[end - 1], text[end]))
+                        if (i < lineCount - 1 && end > 0 && !isValidWordWrap(text[end - 1]))
                             return 1
                         if (maxWidth < layout.getLineRight(i) - layout.getLineLeft(i))
                             maxWidth = layout.getLineRight(i).toInt() - layout.getLineLeft(i).toInt()
@@ -98,8 +98,8 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
         initialized = true
     }
 
-    fun isValidWordWrap(before: Char, after: Char): Boolean {
-        return before == ' ' || before == '-'
+    fun isValidWordWrap(c: Char): Boolean {
+        return c == ' ' || c == '-'
     }
 
     override fun setAllCaps(allCaps: Boolean) {
