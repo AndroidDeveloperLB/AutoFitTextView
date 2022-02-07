@@ -219,7 +219,7 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
     private fun binarySearch(start: Int, end: Int, sizeTester: SizeTester, availableSpace: RectF): Int {
         var lastBest = start
         var lo = start
-        var hi = end - 1
+        var hi = end
         var mid: Int
         while (lo <= hi) {
             mid = (lo + hi).ushr(1)
