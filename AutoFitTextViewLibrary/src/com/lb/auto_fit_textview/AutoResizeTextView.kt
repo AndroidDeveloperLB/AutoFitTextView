@@ -27,7 +27,8 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
     private var spacingMult = 1.0f
     private var spacingAdd = 0.0f
     private var minTextSize: Float = 0.toFloat()
-    private var widthLimit: Int = 0
+    private var widthLimit: Int = Int.MAX_VALUE
+    private var heightLimit: Int = Int.MAX_VALUE
     private var maxLines: Int = 0
     private var initialized = false
     private var textPaint: TextPaint? = null
@@ -165,6 +166,20 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
         spacingAdd = add
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        widthLimit = if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.UNSPECIFIED) {
+            Int.MAX_VALUE
+        } else {
+            MeasureSpec.getSize(widthMeasureSpec) - compoundPaddingLeft - compoundPaddingRight
+        }
+        heightLimit = if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.UNSPECIFIED) {
+            Int.MAX_VALUE
+        } else {
+            MeasureSpec.getSize(heightMeasureSpec) - compoundPaddingBottom - compoundPaddingTop
+        }
+    }
+
     /**
      * Set the lower text size limit and invalidate the view
      *
@@ -186,9 +201,7 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
         if (!initialized)
             return
         val startSize = minTextSize.toInt()
-        val heightLimit = measuredHeight - compoundPaddingBottom - compoundPaddingTop
-        widthLimit = measuredWidth - compoundPaddingLeft - compoundPaddingRight
-        if (widthLimit <= 0)
+        if (widthLimit <= 0 || heightLimit <= 0)
             return
         textPaint = TextPaint(paint)
         availableSpaceRect.right = widthLimit.toFloat()
@@ -206,7 +219,7 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
     private fun binarySearch(start: Int, end: Int, sizeTester: SizeTester, availableSpace: RectF): Int {
         var lastBest = start
         var lo = start
-        var hi = end - 1
+        var hi = end
         var mid: Int
         while (lo <= hi) {
             mid = (lo + hi).ushr(1)

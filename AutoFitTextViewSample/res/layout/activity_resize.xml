@@ -1,0 +1,83 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent" android:layout_height="match_parent" tools:context=".DynamicResizeActivity">
+
+  <EditText
+    android:id="@+id/contentEditText" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="fill_horizontal" android:ems="10"
+    android:hint="content" android:text="content text sample" app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+    android:id="@+id/maxLineCountTitleTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp"
+    android:gravity="center_vertical" android:text="max lines count:" app:layout_constraintBottom_toBottomOf="@id/minusLineCountButton"
+    app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/contentEditText"/>
+
+  <Button
+    android:id="@+id/minusLineCountButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-"
+    app:layout_constraintStart_toEndOf="@id/maxLineCountTitleTextView" app:layout_constraintTop_toBottomOf="@id/contentEditText"/>
+
+  <TextView
+    android:id="@+id/linesCountTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingLeft="10dp" android:paddingRight="10dp"
+    android:text="2" app:layout_constraintBottom_toBottomOf="@id/minusLineCountButton" app:layout_constraintStart_toEndOf="@id/minusLineCountButton"
+    app:layout_constraintTop_toBottomOf="@id/contentEditText"/>
+
+
+  <Button
+    android:id="@+id/plusLineCountButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/contentEditText" android:text="+"
+    app:layout_constraintStart_toEndOf="@id/linesCountTextView" app:layout_constraintTop_toBottomOf="@id/contentEditText"/>
+
+  <TextView
+    android:id="@+id/startTitleTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="start:"
+    android:textSize="20dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/minusLineCountButton"/>
+
+  <SeekBar
+    android:id="@+id/startSeekBar" android:layout_width="0px" android:layout_height="wrap_content" android:layout_marginEnd="4dp" android:progress="0"
+    app:layout_constraintBottom_toBottomOf="@id/startTitleTextView" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/startTitleTextView"
+    app:layout_constraintTop_toBottomOf="@id/minusLineCountButton"/>
+
+  <TextView
+      android:id="@+id/topTitleTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="top:"
+      android:textSize="20dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/startTitleTextView"/>
+
+  <SeekBar
+      android:id="@+id/topSeekBar" android:layout_width="0px" android:layout_height="wrap_content" android:layout_marginEnd="4dp" android:progress="0"
+      app:layout_constraintBottom_toBottomOf="@id/topTitleTextView" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/topTitleTextView"
+      app:layout_constraintTop_toBottomOf="@id/startTitleTextView"/>
+
+  <TextView
+      android:id="@+id/endTitleTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="end:"
+      android:textSize="20dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/topTitleTextView"/>
+
+  <SeekBar
+      android:id="@+id/endSeekBar" android:layout_width="0px" android:layout_height="wrap_content" android:layout_marginEnd="4dp" android:progress="0"
+      app:layout_constraintBottom_toBottomOf="@id/endTitleTextView" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/endTitleTextView"
+      app:layout_constraintTop_toBottomOf="@id/topTitleTextView"/>
+
+  <TextView
+      android:id="@+id/bottomTitleTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="bottom:"
+      android:textSize="20dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/endTitleTextView"/>
+
+  <SeekBar
+      android:id="@+id/bottomSeekBar" android:layout_width="0px" android:layout_height="wrap_content" android:layout_marginEnd="4dp" android:progress="0"
+      app:layout_constraintBottom_toBottomOf="@id/bottomTitleTextView" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/bottomTitleTextView"
+      app:layout_constraintTop_toBottomOf="@id/endTitleTextView"/>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/textViewContainer" android:layout_width="match_parent" android:layout_height="0px" android:background="#ffff0000"
+    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@id/bottomTitleTextView">
+
+    <View
+        android:id="@+id/topStartMargin" android:layout_width="1dp" android:layout_height="1dp"
+        app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+
+    <View
+        android:id="@+id/bottomEndMargin" android:layout_width="1dp" android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.lb.auto_fit_textview.AutoResizeTextView
+        android:id="@+id/contentTextView" android:layout_width="0dp" android:layout_height="0dp" android:background="#ff00ff00" android:textSize="200sp" android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@id/topStartMargin" app:layout_constraintStart_toEndOf="@id/topStartMargin"
+        app:layout_constraintEnd_toStartOf="@id/bottomEndMargin" app:layout_constraintBottom_toTopOf="@id/bottomEndMargin"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
