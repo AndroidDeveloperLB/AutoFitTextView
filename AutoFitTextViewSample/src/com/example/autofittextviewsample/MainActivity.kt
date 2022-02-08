@@ -106,6 +106,10 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, Main2Activity::class.java))
                 return true
             }
+            R.id.menuItem_show_dynamicResizeSample -> {
+                startActivity(Intent(this, DynamicResizeActivity::class.java))
+                return true
+            }
         }
         if (url == null)
             return true
