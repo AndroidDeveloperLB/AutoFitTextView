@@ -30,7 +30,7 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
     private var widthLimit: Int = 0
     private var maxLines: Int = 0
     private var initialized = false
-    private var textPaint: TextPaint? = null
+    private var textPaint: TextPaint
 
     private interface SizeTester {
         /**
@@ -43,6 +43,8 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
         fun onTestSize(suggestedSize: Int, availableSpace: RectF): Int
     }
 
+    
+    
     init {
         // using the minimal recommended font size
         minTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12f, resources.displayMetrics)
@@ -53,24 +55,22 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
             maxLines = NO_LINE_LIMIT
         // prepare size tester:
         sizeTester = object : SizeTester {
-            internal val textRect = RectF()
+            val textRect = RectF()
 
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             override fun onTestSize(suggestedSize: Int, availableSpace: RectF): Int {
-                textPaint!!.textSize = suggestedSize.toFloat()
+                textPaint.textSize = suggestedSize.toFloat()
                 val transformationMethod = transformationMethod
-                val text: String
-                if (transformationMethod != null)
-                    text = transformationMethod.getTransformation(getText(), this@AutoResizeTextView).toString()
-                else
-                    text = getText().toString()
+                val text: String = transformationMethod?.getTransformation(text, this@AutoResizeTextView)
+                    ?.toString()
+                    ?: text.toString()
                 val singleLine = maxLines == 1
                 if (singleLine) {
-                    textRect.bottom = textPaint!!.fontSpacing
-                    textRect.right = textPaint!!.measureText(text)
+                    textRect.bottom = textPaint.fontSpacing
+                    textRect.right = textPaint.measureText(text)
                 } else {
                     val layout: StaticLayout = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        StaticLayout.Builder.obtain(text, 0, text.length, textPaint!!, widthLimit).setLineSpacing(spacingAdd, spacingMult).setAlignment(Alignment.ALIGN_NORMAL).setIncludePad(true).build()
+                        StaticLayout.Builder.obtain(text, 0, text.length, textPaint, widthLimit).setLineSpacing(spacingAdd, spacingMult).setAlignment(Alignment.ALIGN_NORMAL).setIncludePad(true).build()
                     } else StaticLayout(text, textPaint, widthLimit, Alignment.ALIGN_NORMAL, spacingMult, spacingAdd, true)
                     // return early if we have more lines
                     if (maxLines != NO_LINE_LIMIT && layout.lineCount > maxLines)
@@ -135,10 +135,10 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
 
     override fun setSingleLine(singleLine: Boolean) {
         super.setSingleLine(singleLine)
-        if (singleLine)
-            maxLines = 1
+        maxLines = if (singleLine)
+            1
         else
-            maxLines = NO_LINE_LIMIT
+            NO_LINE_LIMIT
         adjustTextSize()
     }
 
@@ -150,8 +150,7 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
 
     override fun setTextSize(unit: Int, size: Float) {
         val c = context
-        val r: Resources
-        r = if (c == null)
+        val r: Resources = if (c == null)
             Resources.getSystem()
         else
             c.resources
@@ -167,9 +166,8 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
 
     /**
      * Set the lower text size limit and invalidate the view
-     *
-     * @param minTextSize
      */
+    @Suppress("unused")
     fun setMinTextSize(minTextSize: Float) {
         this.minTextSize = minTextSize
         adjustTextSize()
@@ -237,6 +235,6 @@ class AutoResizeTextView @JvmOverloads constructor(context: Context, attrs: Attr
     }
 
     companion object {
-        private val NO_LINE_LIMIT = -1
+        private const val NO_LINE_LIMIT = -1
     }
 }

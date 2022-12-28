@@ -9,17 +9,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import kotlinx.android.synthetic.main.activity_main2.*
+import com.example.autofittextviewsample.databinding.ActivityMain2Binding
 
 class Main2Activity : AppCompatActivity() {
+    private lateinit var binding: ActivityMain2Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recyclerView.adapter = object : Adapter<ViewHolder>() {
+        binding = ActivityMain2Binding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.adapter = object : Adapter<ViewHolder>() {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-                return object : ViewHolder(LayoutInflater.from(this@Main2Activity).inflate(R.layout.item, parent, false)) {
+                return object : ViewHolder(
+                    LayoutInflater.from(this@Main2Activity).inflate(R.layout.item, parent, false)
+                ) {
 
                 }
             }
@@ -27,7 +32,7 @@ class Main2Activity : AppCompatActivity() {
             override fun onBindViewHolder(holder: ViewHolder, position: Int) {
                 val sb = StringBuilder("item:")
                 for (i in 0..position)
-                    sb.append(Integer.toString(position))
+                    sb.append(position.toString())
                 holder.textView.text = sb
             }
 
@@ -38,7 +43,7 @@ class Main2Activity : AppCompatActivity() {
     }
 
     private open class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val textView: TextView
+        val textView: TextView
 
         init {
             textView = itemView.findViewById<View>(android.R.id.text1) as TextView

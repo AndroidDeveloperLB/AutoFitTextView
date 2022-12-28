@@ -4,9 +4,12 @@
     <menu>
       <group android:checkableBehavior="none" android:menuCategory="container">
         <item android:id="@+id/menuItem_show_recyclerViewSample" android:title="show RecyclerView sample"/>
-        <item android:id="@+id/menuItem_current_repository_website" android:title="Repository website"></item>
-        <item android:id="@+id/menuItem_all_my_repositories" android:title="All my repositories"></item>
-        <item android:id="@+id/menuItem_all_my_apps" android:title="All my apps"></item>
+        <item
+            android:id="@+id/menuItem_current_repository_website" android:title="Repository website" />
+        <item
+            android:id="@+id/menuItem_all_my_repositories" android:title="All my repositories" />
+        <item
+            android:id="@+id/menuItem_all_my_apps" android:title="All my apps" />
       </group>
     </menu>
   </item>
