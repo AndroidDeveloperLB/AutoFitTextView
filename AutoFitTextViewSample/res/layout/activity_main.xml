@@ -1,51 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent" android:layout_height="match_parent" tools:context=".MainActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context=".MainActivity">
 
-  <EditText
-    android:id="@+id/contentEditText" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="fill_horizontal" android:ems="10"
-    android:hint="content" android:text="content text sample" app:layout_constraintTop_toTopOf="parent"/>
+    <EditText
+        android:id="@+id/contentEditText" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_gravity="fill_horizontal"
+        android:ems="10" android:hint="content" android:importantForAutofill="no"
+        android:inputType="text" android:text="content text sample"
+        app:layout_constraintTop_toTopOf="parent" />
 
-  <TextView
-    android:id="@+id/maxLineCountTitleTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp"
-    android:gravity="center_vertical" android:text="max lines count:" app:layout_constraintBottom_toBottomOf="@id/minusLineCountButton"
-    app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/contentEditText"/>
+    <TextView
+        android:id="@+id/maxLineCountTitleTextView" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_marginStart="4dp"
+        android:gravity="center_vertical" android:text="max lines count:"
+        app:layout_constraintBottom_toBottomOf="@id/minusLineCountButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/contentEditText" />
 
-  <Button
-    android:id="@+id/minusLineCountButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-"
-    app:layout_constraintStart_toEndOf="@id/maxLineCountTitleTextView" app:layout_constraintTop_toBottomOf="@id/contentEditText"/>
+    <Button
+        android:id="@+id/minusLineCountButton" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="-"
+        app:layout_constraintStart_toEndOf="@id/maxLineCountTitleTextView"
+        app:layout_constraintTop_toBottomOf="@id/contentEditText" />
 
-  <TextView
-    android:id="@+id/linesCountTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingLeft="10dp" android:paddingRight="10dp"
-    android:text="2" app:layout_constraintBottom_toBottomOf="@id/minusLineCountButton" app:layout_constraintStart_toEndOf="@id/minusLineCountButton"
-    app:layout_constraintTop_toBottomOf="@id/contentEditText"/>
+    <TextView
+        android:id="@+id/linesCountTextView" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:paddingLeft="10dp" android:paddingRight="10dp"
+        android:text="2" app:layout_constraintBottom_toBottomOf="@id/minusLineCountButton"
+        app:layout_constraintStart_toEndOf="@id/minusLineCountButton"
+        app:layout_constraintTop_toBottomOf="@id/contentEditText" />
 
-  <Button
-    android:id="@+id/plusLineCountButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/contentEditText" android:text="+"
-    app:layout_constraintStart_toEndOf="@id/linesCountTextView" app:layout_constraintTop_toBottomOf="@id/contentEditText"/>
+    <Button
+        android:id="@+id/plusLineCountButton" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_below="@+id/contentEditText"
+        android:text="+" app:layout_constraintStart_toEndOf="@id/linesCountTextView"
+        app:layout_constraintTop_toBottomOf="@id/contentEditText" />
 
-  <TextView
-    android:id="@+id/widthTitleTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="width:"
-    android:textSize="20dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/minusLineCountButton"/>
+    <TextView
+        android:id="@+id/widthTitleTextView" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_marginStart="4dp" android:text="width:"
+        android:textSize="20sp" app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/minusLineCountButton" />
 
-  <SeekBar
-    android:id="@+id/widthSeekBar" android:layout_width="0px" android:layout_height="wrap_content" android:layout_marginEnd="4dp" android:progress="50"
-    app:layout_constraintBottom_toBottomOf="@id/widthTitleTextView" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/widthTitleTextView"
-    app:layout_constraintTop_toBottomOf="@id/minusLineCountButton"/>
+    <SeekBar
+        android:id="@+id/widthSeekBar" android:layout_width="0dp"
+        android:layout_height="wrap_content" android:layout_marginEnd="4dp" android:progress="50"
+        app:layout_constraintBottom_toBottomOf="@id/widthTitleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/widthTitleTextView"
+        app:layout_constraintTop_toBottomOf="@id/minusLineCountButton" />
 
-  <TextView
-    android:id="@+id/heightTitleTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@+id/widthTitleTextView"
-    android:layout_marginStart="4dp" android:text="height:" android:textSize="20dp" app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/widthTitleTextView"/>
+    <TextView
+        android:id="@+id/heightTitleTextView" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_below="@+id/widthTitleTextView"
+        android:layout_marginStart="4dp" android:text="height:" android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/widthTitleTextView" />
 
 
-  <SeekBar
-    android:id="@+id/heightSeekBar" android:layout_width="0px" android:layout_height="wrap_content" android:layout_marginEnd="4dp" android:max="100" android:progress="50"
-    app:layout_constraintBottom_toBottomOf="@id/heightTitleTextView" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/heightTitleTextView"
-    app:layout_constraintTop_toBottomOf="@id/widthTitleTextView"/>
+    <SeekBar
+        android:id="@+id/heightSeekBar" android:layout_width="0dp"
+        android:layout_height="wrap_content" android:layout_marginEnd="4dp" android:max="100"
+        android:progress="50" app:layout_constraintBottom_toBottomOf="@id/heightTitleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/heightTitleTextView"
+        app:layout_constraintTop_toBottomOf="@id/widthTitleTextView" />
 
-  <FrameLayout
-    android:id="@+id/textViewContainer" android:layout_width="match_parent" android:layout_height="0px" android:background="#ffff0000"
-    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@id/heightTitleTextView"/>
+    <FrameLayout
+        android:id="@+id/textViewContainer" android:layout_width="match_parent"
+        android:layout_height="0dp" android:background="#ffff0000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/heightTitleTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
