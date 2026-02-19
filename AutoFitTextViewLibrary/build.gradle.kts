@@ -26,6 +26,23 @@ android {
             jvmTarget.set(JvmTarget.JVM_17)
         }
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                from(components["release"])
+                // Keep artifactId as Repo name for JitPack to find it easily if requested as com.github.User:Repo:Version
+                artifactId = "AutoFitTextView"
+            }
+        }
+    }
 }
 
 dependencies {
