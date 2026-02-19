@@ -38,3 +38,13 @@ dependencies {
     implementation("com.google.android.material:material:1.13.0")
     implementation("androidx.core:core-ktx:1.17.0")
 }
+
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                from(components["release"])
+            }
+        }
+    }
+}
