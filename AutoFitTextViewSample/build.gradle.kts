@@ -45,4 +45,6 @@ dependencies {
     implementation(project(":AutoFitTextViewLibrary"))
     implementation("androidx.core:core-ktx:1.17.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
+    implementation("com.github.AndroidDeveloperLB:CommonUtils:37")
+
 }

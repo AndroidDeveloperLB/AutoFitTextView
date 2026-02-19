@@ -5,18 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.autofittextviewsample.databinding.ActivityMain2Binding
+import com.example.autofittextviewsample.databinding.ActivityMainBinding
+import com.lb.common_utils.BoundActivity
 
-class Main2Activity : AppCompatActivity() {
-    private lateinit var binding: ActivityMain2Binding
+class Main2Activity : BoundActivity<ActivityMain2Binding>(ActivityMain2Binding::inflate) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMain2Binding.inflate(layoutInflater)
-        setContentView(binding.root)
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(0))
+        ViewCompat.setOnApplyWindowInsetsListener(binding.appBarLayout) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            binding.appBarLayout.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            insets
+        }
+        setSupportActionBar(binding.toolbar)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = SampleAdapter()

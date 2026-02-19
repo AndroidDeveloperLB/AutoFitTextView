@@ -15,19 +15,29 @@ import android.view.ViewGroup.LayoutParams
 import android.view.ViewTreeObserver.OnPreDrawListener
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.net.toUri
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.autofittextviewsample.databinding.ActivityMainBinding
 import com.lb.auto_fit_textview.AutoResizeTextView
+import com.lb.common_utils.BoundActivity
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+class MainActivity :  BoundActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(0))
+        ViewCompat.setOnApplyWindowInsetsListener(binding.appBarLayout) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            binding.appBarLayout.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            insets
+        }
+        setSupportActionBar(binding.toolbar)
 
         binding.contentEditText.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
